@@ -14,7 +14,7 @@
           <div class="space-y-8">
             <section class="card">
               <p class="text-gray-400">
-                Bounced ("we," "our," or "us") is a music analytics dashboard owned and operated by Dezolent, LLC, a Florida-registered limited liability company. These Terms of Service ("Terms") govern your use of https://app.bounced.studio (the "Site") and any related services (collectively, the "Service"). By accessing or using the Service—whether by clicking "Sign in with Spotify," "Sign in with Google," or otherwise—you agree to these Terms. If you do not agree, do not use the Service.
+                Bounced Studio ("we," "our," or "us") is a music analytics dashboard owned and operated by Dezolent, LLC, a Florida-registered limited liability company. These Terms of Service ("Terms") govern your use of https://app.bounced.studio (the "Site") and any related services (collectively, the "Service"). By accessing or using the Service—whether by clicking "Sign in with Spotify," "Sign in with Google," or otherwise—you agree to these Terms. If you do not agree, do not use the Service.
               </p>
             </section>
 
@@ -33,7 +33,7 @@
                 <li>Google OAuth: Clicking "Sign in with Google" will redirect you to Google's login/consent flow. You authorize us to access your basic Google profile data (email, name, profile picture) as described in our Privacy Policy.</li>
               </ul>
               <p class="text-gray-400 mb-4">
-                By completing either OAuth flow, you create a free Bounced account linked to your email address. You are responsible for keeping your account credentials (i.e., your email, OAuth tokens) secure. You agree not to share your account with anyone. If you believe your account has been compromised, notify us immediately via contact@dezolent.com.
+                By completing either OAuth flow, you create a free Bounced Studio account linked to your email address. You are responsible for keeping your account credentials (i.e., your email, OAuth tokens) secure. You agree not to share your account with anyone. If you believe your account has been compromised, notify us immediately via contact@dezolent.com.
               </p>
               <h3 class="text-xl font-semibold text-gray-100 mb-2">1.3 Account Information</h3>
               <p class="text-gray-400">
@@ -45,7 +45,7 @@
               <h2 class="text-2xl font-bold text-gray-100 mb-4">2. Description of Service</h2>
               <h3 class="text-xl font-semibold text-gray-100 mb-2">2.1 Core Functionality</h3>
               <p class="text-gray-400 mb-4">
-                Bounced aggregates streaming data (e.g., play counts, listener counts, playlist placements) from Spotify and, where enabled by you, other third-party services. We present:
+                Bounced Studio aggregates streaming data (e.g., play counts, listener counts, playlist placements) from Spotify and, where enabled by you, other third-party services. We present:
               </p>
               <ul class="list-disc list-inside text-gray-400 space-y-2 mb-4">
                 <li>A consolidated dashboard showing total plays, listener trends, and estimated royalty earnings</li>
@@ -69,7 +69,7 @@
               <h2 class="text-2xl font-bold text-gray-100 mb-4">3. User Conduct & Responsibilities</h2>
               <h3 class="text-xl font-semibold text-gray-100 mb-2">3.1 Lawful Use</h3>
               <p class="text-gray-400 mb-4">
-                You agree to use the Service in compliance with all applicable laws and regulations, including copyright and data‐protection laws. You may not use Bounced to infringe on anyone's intellectual property rights.
+                You agree to use the Service in compliance with all applicable laws and regulations, including copyright and data‐protection laws. You may not use Bounced Studio to infringe on anyone's intellectual property rights.
               </p>
               <h3 class="text-xl font-semibold text-gray-100 mb-2">3.2 Prohibited Activities</h3>
               <p class="text-gray-400 mb-4">
@@ -98,7 +98,7 @@
               <h2 class="text-2xl font-bold text-gray-100 mb-4">4. Intellectual Property</h2>
               <h3 class="text-xl font-semibold text-gray-100 mb-2">4.1 Our Rights</h3>
               <p class="text-gray-400 mb-4">
-                All content, features, and functionality of the Service—excluding third‐party content like Spotify playlists, Google profiles, or user‐generated content—are owned by Dezolent, LLC or its licensors and are protected by copyright, trademark, and other intellectual property laws. "Bounced," its logos, and "Dezolent, LLC" are trademarks of Dezolent, LLC.
+                All content, features, and functionality of the Service—excluding third‐party content like Spotify playlists, Google profiles, or user‐generated content—are owned by Dezolent, LLC or its licensors and are protected by copyright, trademark, and other intellectual property laws. "Bounced Studio," its logos, and "Dezolent, LLC" are trademarks of Dezolent, LLC.
               </p>
               <h3 class="text-xl font-semibold text-gray-100 mb-2">4.2 Your Rights</h3>
               <ul class="list-disc list-inside text-gray-400 space-y-2 mb-4">
@@ -115,7 +115,7 @@
               <h2 class="text-2xl font-bold text-gray-100 mb-4">5. Payments, Fees & Refunds</h2>
               <h3 class="text-xl font-semibold text-gray-100 mb-2">5.1 Free Tier & Future Paid Plans</h3>
               <p class="text-gray-400 mb-4">
-                As of June 2025, Bounced is offered free of charge. We reserve the right to introduce paid subscriptions or premium features in the future. Users of any free trial or free tier will be notified at least 30 days in advance of any fee changes.
+                As of June 2025, Bounced Studio is offered free of charge. We reserve the right to introduce paid subscriptions or premium features in the future. Users of any free trial or free tier will be notified at least 30 days in advance of any fee changes.
               </p>
               <h3 class="text-xl font-semibold text-gray-100 mb-2">5.2 Payment Processing</h3>
               <p class="text-gray-400 mb-4">
