@@ -126,7 +126,7 @@
                   </div>
                   <div>
                     <p class="text-white font-medium">Email</p>
-                    <p class="text-dark-300">hello@bounced.com</p>
+                    <p class="text-dark-300">contact@dezolent.com</p>
                   </div>
                 </div>
 
@@ -152,8 +152,8 @@
                   <div>
                     <p class="text-white font-medium">Address</p>
                     <p class="text-dark-300">
-                      123 Music Street<br>
-                      Studio City, CA 91604<br>
+                      18412 Homestead Avenue, Apt. 132<br>
+                      Miami, CA 33157<br>
                       United States
                     </p>
                   </div>
