@@ -156,6 +156,57 @@ useHead({
           </p>
         </div>
 
+
+        <template>
+  <div class="card group cursor-pointer" @click="navigateToProduct">
+    <div class="relative overflow-hidden rounded-lg mb-4">
+      <img 
+        :src="product.images.edges[0]?.node.url || '/placeholder-product.jpg'"
+        :alt="product.title"
+        class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-105"
+      >
+      <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300"></div>
+      <div class="absolute top-4 right-4">
+        <span v-if="isOnSale" class="bg-red-500 text-white px-2 py-1 rounded-full text-sm font-semibold">
+          Sale
+        </span>
+      </div>
+    </div>
+    
+    <div class="space-y-2">
+      <h3 class="text-lg font-semibold text-gray-100 group-hover:text-primary-400 transition-colors duration-300">
+        {{ product.title }}
+      </h3>
+      
+      <p class="text-gray-400 text-sm line-clamp-2">
+        {{ product.description }}
+      </p>
+      
+      <div class="flex items-center justify-between">
+        <div class="flex items-center space-x-2">
+          <span class="text-xl font-bold text-primary-400">
+            ${{ minPrice }}
+          </span>
+          <span v-if="maxPrice !== minPrice" class="text-gray-500">
+            - ${{ maxPrice }}
+          </span>
+        </div>
+        
+        <button 
+          @click.stop="quickAdd"
+          class="bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-lg transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 focus:ring-offset-dark-900"
+        >
+          Quick Add
+        </button>
+      </div>
+    </div>
+  </div>
+</template>
+
+
+
+        
+
         <!-- now fully SSR’d -->
       <FeaturedProducts />
       <div class="text-center mt-12">
