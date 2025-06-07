@@ -10,7 +10,7 @@ const pageInfo     = ref(null)
 // IMPORTANT: useAsyncData so it SSRs
 const { data, pending, error, refresh } = await useAsyncData(
   'featured-products',
-  () => getProducts(4)
+  () => getProducts(6)
 )
 
 watch(data, (d) => {
