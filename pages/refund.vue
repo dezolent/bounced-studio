@@ -109,7 +109,7 @@
               </p>
               <div class="mt-4 text-dark-300">
                 <p>Email: contact@dezolent.com</p>
-                <p>Phone: +1 (555) 123-4567</p>
+                <p style="display: none;">Phone: +1 (555) 123-4567</p>
                 <p>Hours: Monday-Friday, 9 AM - 6 PM PST</p>
               </div>
             </section>
