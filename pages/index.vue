@@ -1,24 +1,5 @@
 <script setup lang="ts">
-import { ref, watch, computed } from 'vue'
-import { useShopify } from '~/composables/useShopify'
-
-// Initialize featuredProducts as a ref with empty array to ensure consistent initial state
-const featuredProducts = ref([])
-
-const { getProducts } = useShopify()
-const selectedFilter = ref('all')
-const allProducts   = ref([])
-const pageInfo      = ref(null)
-
-const { data: productsData, pending, error, refresh } = 
-  await useAsyncData('featured-products', () => getProducts(6))
-
-watch(productsData, (d) => {
-  if (d?.products) {
-    allProducts.value = d.products.edges
-    pageInfo.value    = d.products.pageInfo
-  }
-}, { immediate: true })
+import FeaturedProducts from '~/components/FeaturedProducts.vue'
 
 // SEO
 useHead({
@@ -96,12 +77,9 @@ useHead({
 
         <!-- now fully SSR’d -->
       <FeaturedProducts />
-
-        <div class="text-center mt-12">
-          <NuxtLink to="/products" class="btn-primary text-lg px-8 py-4">
-            View All Products
-          </NuxtLink>
-        </div>
+      <div class="text-center mt-12">
+        <NuxtLink to="/products" class="btn-primary">View All Products</NuxtLink>
+      </div>
       </div>
     </section>
 
