@@ -1,6 +1,87 @@
 <script setup lang="ts">
-import FeaturedProducts from '~/components/FeaturedProducts.vue'
+// → IMPORTS
+  import { ref, watch, computed } from 'vue'
+  import { useShopify } from '~/composables/useShopify'  
 
+  const { getProducts } = useShopify()
+  
+  // Reactive data
+  const selectedFilter = ref('all')
+  const loadingMore = ref(false)
+  const allProducts = ref([])
+  const pageInfo = ref(null)
+  
+  const filters = [
+    { label: 'All Products', value: 'all' },
+    { label: 'Hoodies', value: 'hoodies' },
+    { label: 'T-Shirts', value: 't-shirts' },
+    { label: 'Accessories', value: 'accessories' },
+    { label: 'New Arrivals', value: 'new' }
+  ]
+  
+  // Fetch initial products
+  const { data: productsData, pending, error, refresh } = await useAsyncData(
+    'all-products',
+    () => getProducts(6)
+  )
+  
+  // Watch for data changes
+  watch(productsData, (newData) => {
+    if (newData?.products) {
+      allProducts.value = newData.products.edges
+      pageInfo.value = newData.products.pageInfo
+    }
+  }, { immediate: true })
+  
+  // Computed properties
+  const filteredProducts = computed(() => {
+    if (selectedFilter.value === 'all') {
+      return allProducts.value
+    }
+    
+    return allProducts.value.filter(product => {
+      const tags = product.node.tags.map(tag => tag.toLowerCase())
+      const productType = product.node.productType.toLowerCase()
+      
+      switch (selectedFilter.value) {
+        case 'hoodies':
+          return tags.includes('hoodie') || productType.includes('hoodie')
+        case 't-shirts':
+          return tags.includes('t-shirt') || tags.includes('tshirt') || productType.includes('t-shirt')
+        case 'accessories':
+          return tags.includes('accessory') || productType.includes('accessory')
+        case 'new':
+          const thirtyDaysAgo = new Date()
+          thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30)
+          return new Date(product.node.createdAt) > thirtyDaysAgo
+        default:
+          return true
+      }
+    })
+  })
+  
+  const hasNextPage = computed(() => {
+    return pageInfo.value?.hasNextPage || false
+  })
+  
+  // Methods
+  const loadMore = async () => {
+    if (!hasNextPage.value || loadingMore.value) return
+    
+    loadingMore.value = true
+    
+    try {
+      const moreData = await getProducts(20, pageInfo.value.endCursor)
+      if (moreData?.products) {
+        allProducts.value = [...allProducts.value, ...moreData.products.edges]
+        pageInfo.value = moreData.products.pageInfo
+      }
+    } catch (err) {
+      console.error('Failed to load more products:', err)
+    } finally {
+      loadingMore.value = false
+    }
+  }
 // SEO
 useHead({
   title: 'Bounced - Premium Streetwear for Music Producers',
