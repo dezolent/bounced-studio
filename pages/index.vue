@@ -45,51 +45,7 @@
     </section>
 
     <!-- Featured Products Section -->
-    <section class="py-20 bg-dark-950">
-      <div class="container mx-auto px-4">
-        <div class="text-center mb-16">
-          <h2 class="text-4xl md:text-5xl font-bold text-gray-100 mb-6">
-            Featured <span class="gradient-text">Products</span>
-          </h2>
-          <p class="text-xl text-gray-400 max-w-2xl mx-auto">
-            Discover our latest drops designed specifically for the music production community
-          </p>
-        </div>
-
-        <!-- 1) Loading State -->
-        <div v-if="pending" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-          <div v-for="i in 4" :key="i" class="card animate-pulse">
-            <div class="bg-dark-700 h-64 rounded-lg mb-4"></div>
-            <div class="space-y-2">
-              <div class="bg-dark-700 h-6 rounded w-3/4"></div>
-              <div class="bg-dark-700 h-4 rounded w-full"></div>
-              <div class="bg-dark-700 h-4 rounded w-1/2"></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 2) Error State -->
-        <div v-else-if="error" class="text-center text-red-400 py-12">
-          <p class="mb-4">Failed to load products. Please try again later.</p>
-          <button @click="refresh" class="btn-primary">Try Again</button>
-        </div>
-
-        <!-- 3) Product Grid -->
-        <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-          <ProductCard 
-            v-for="edge in allProducts" 
-            :key="edge.node.id" 
-            :product="edge.node" 
-          />
-        </div>
-
-        <div class="text-center mt-12">
-          <NuxtLink to="/products" class="btn-primary text-lg px-8 py-4">
-            View All Products
-          </NuxtLink>
-        </div>
-      </div>
-    </section>
+    <FeaturedProducts />
 
     <!-- Why Choose Bounced -->
     <section class="py-20 bg-dark-900">
@@ -156,10 +112,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue'
-import { useShopify } from '~/composables/useShopify'
-import { useHead }     from '#app'
-import ProductCard     from '~/components/ProductCard.vue'
+import { useHead } from '#app'
+import FeaturedProducts from '~/components/FeaturedProducts.vue'
 
 // SEO meta
 useHead({
@@ -172,21 +126,4 @@ useHead({
     { property: 'og:type', content: 'website' }
   ]
 })
-
-// Fetch 4 featured products on both server and client
-const { getProducts } = useShopify()
-const allProducts     = ref<{ node: any }[]>([])
-const pageInfo        = ref<{ hasNextPage: boolean; endCursor: string } | null>(null)
-
-const { data: productsData, pending, error, refresh } = await useAsyncData(
-  'featured-products',
-  () => getProducts(4)
-)
-
-watch(productsData, (d) => {
-  if (d?.products) {
-    allProducts.value = d.products.edges
-    pageInfo.value    = d.products.pageInfo
-  }
-}, { immediate: true })
 </script>
