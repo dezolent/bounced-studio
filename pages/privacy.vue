@@ -340,7 +340,7 @@
               <div class="text-dark-300">
                 <p>Bounced Privacy Team<br>
                 Email: contact@dezolent.com<br>
-                Address: 123 Music Blvd, Suite 100, Nashville, TN 37203 (United States)</p>
+                Address: 18412 Homestead Avenue, Apt. 132, Miami, FL 33157</p>
               </div>
               <p class="text-dark-300 mt-4">
                 By using https://app.bounced.studio, you acknowledge that you have read and understood this Privacy Policy and agree to our collection and use of your information as described above.
