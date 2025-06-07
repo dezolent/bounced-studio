@@ -172,6 +172,9 @@
 <script setup>
 const { getProducts } = useShopify()
 
+// Initialize featuredProducts as a ref with empty array to ensure consistent initial state
+const featuredProducts = ref([])
+
 // Fetch featured products with better error handling
 const { data: productsData, pending, error, refresh } = await useLazyAsyncData('featured-products', async () => {
   try {
@@ -183,12 +186,12 @@ const { data: productsData, pending, error, refresh } = await useLazyAsyncData('
   }
 })
 
-const featuredProducts = computed(() => {
-  if (!productsData.value?.products?.edges) {
-    return []
+// Watch for changes in productsData and update featuredProducts
+watch(productsData, (newData) => {
+  if (newData?.products?.edges) {
+    featuredProducts.value = newData.products.edges
   }
-  return productsData.value.products.edges
-})
+}, { immediate: true })
 
 // SEO
 useHead({
