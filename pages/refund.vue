@@ -27,7 +27,7 @@
                 To initiate a return:
               </p>
               <ol class="list-decimal list-inside text-dark-300 space-y-2">
-                <li>Contact our customer service team at returns@bounced.com</li>
+                <li>Contact our customer service team at contact@dezolent.com</li>
                 <li>Provide your order number and reason for return</li>
                 <li>Receive a return authorization number and shipping label</li>
                 <li>Package the item securely and attach the return label</li>
@@ -61,7 +61,7 @@
               <h2 class="text-2xl font-bold text-white mb-4">Damaged or Defective Items</h2>
               <p class="text-dark-300">
                 If you receive a damaged or defective item, please contact us immediately at 
-                support@bounced.com with photos of the issue. We'll provide a prepaid return 
+                contact@dezolent.com with photos of the issue. We'll provide a prepaid return 
                 label and expedite a replacement or full refund.
               </p>
             </section>
@@ -108,7 +108,7 @@
                 If you have any questions about our refund policy or need assistance with a return:
               </p>
               <div class="mt-4 text-dark-300">
-                <p>Email: returns@bounced.com</p>
+                <p>Email: contact@dezolent.com</p>
                 <p>Phone: +1 (555) 123-4567</p>
                 <p>Hours: Monday-Friday, 9 AM - 6 PM PST</p>
               </div>
