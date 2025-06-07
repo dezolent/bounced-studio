@@ -109,8 +109,10 @@ const filters = [
 ]
 
 // Fetch initial products
-const { data: productsData, pending, error, refresh } = await useLazyAsyncData('all-products', () => 
-  getProducts(20)
+// Fetch initial products (on server *and* client)
+const { data: productsData, pending, error, refresh } = await useAsyncData(
+  'all-products',
+  () => getProducts(20)
 )
 
 // Watch for data changes
