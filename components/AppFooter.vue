@@ -55,7 +55,7 @@
 
       <div class="border-t border-dark-800 mt-8 pt-8 text-center">
         <p class="text-gray-500">
-          © {{ currentYear || '2024' }} Bounced. All rights reserved.
+          © {{ currentYear || '2025' }} Bounced. All rights reserved.
         </p>
       </div>
     </div>
