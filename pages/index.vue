@@ -1,3 +1,39 @@
+<script setup lang="ts">
+import { ref, watch, computed } from 'vue'
+import { useShopify } from '~/composables/useShopify'
+
+// Initialize featuredProducts as a ref with empty array to ensure consistent initial state
+const featuredProducts = ref([])
+
+const { getProducts } = useShopify()
+const selectedFilter = ref('all')
+const allProducts   = ref([])
+const pageInfo      = ref(null)
+
+const { data: productsData, pending, error, refresh } = 
+  await useAsyncData('featured-products', () => getProducts(6))
+
+watch(productsData, (d) => {
+  if (d?.products) {
+    allProducts.value = d.products.edges
+    pageInfo.value    = d.products.pageInfo
+  }
+}, { immediate: true })
+
+// SEO
+useHead({
+  title: 'Bounced - Premium Streetwear for Music Producers',
+  meta: [
+    { name: 'description', content: 'Premium streetwear designed for music producers. Elevate your style with our exclusive collection of high-quality apparel.' },
+    { property: 'og:title', content: 'Bounced - Premium Streetwear for Music Producers' },
+    { property: 'og:description', content: 'Premium streetwear designed for music producers. Elevate your style with our exclusive collection of high-quality apparel.' },
+    { property: 'og:image', content: '/basic-shapes-banner-image.jpg' },
+    { property: 'og:type', content: 'website' }
+  ]
+})
+  
+</script>
+
 <template>
   <div>
     <!-- Hero Section -->
@@ -168,40 +204,3 @@
     </section>
   </div>
 </template>
-
-<script setup>
-const { getProducts } = useShopify()
-
-// Initialize featuredProducts as a ref with empty array to ensure consistent initial state
-const featuredProducts = ref([])
-
-// Fetch featured products with better error handling
-const { data: productsData, pending, error, refresh } = await useLazyAsyncData('featured-products', async () => {
-  try {
-    const result = await getProducts(6)
-    return result
-  } catch (err) {
-    console.error('Failed to fetch featured products:', err)
-    throw err
-  }
-})
-
-// Watch for changes in productsData and update featuredProducts
-watch(productsData, (newData) => {
-  if (newData?.products?.edges) {
-    featuredProducts.value = newData.products.edges
-  }
-}, { immediate: true })
-
-// SEO
-useHead({
-  title: 'Bounced - Premium Streetwear for Music Producers',
-  meta: [
-    { name: 'description', content: 'Premium streetwear designed for music producers. Elevate your style with our exclusive collection of high-quality apparel.' },
-    { property: 'og:title', content: 'Bounced - Premium Streetwear for Music Producers' },
-    { property: 'og:description', content: 'Premium streetwear designed for music producers. Elevate your style with our exclusive collection of high-quality apparel.' },
-    { property: 'og:image', content: '/basic-shapes-banner-image.jpg' },
-    { property: 'og:type', content: 'website' }
-  ]
-})
-</script>
