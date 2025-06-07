@@ -1,101 +1,3 @@
-<script setup lang="ts">
-// → IMPORTS
-  import { ref, watch, computed } from 'vue'
-  import { useShopify } from '~/composables/useShopify'  
-
-  const { getProducts } = useShopify()
-  
-  // Reactive data
-  const selectedFilter = ref('all')
-  const loadingMore = ref(false)
-  const allProducts = ref([])
-  const pageInfo = ref(null)
-  
-  const filters = [
-    { label: 'All Products', value: 'all' },
-    { label: 'Hoodies', value: 'hoodies' },
-    { label: 'T-Shirts', value: 't-shirts' },
-    { label: 'Accessories', value: 'accessories' },
-    { label: 'New Arrivals', value: 'new' }
-  ]
-  
-  // Fetch initial products
-  const { data: productsData, pending, error, refresh } = await useAsyncData(
-    'all-products',
-    () => getProducts(6)
-  )
-  
-  // Watch for data changes
-  watch(productsData, (newData) => {
-    if (newData?.products) {
-      allProducts.value = newData.products.edges
-      pageInfo.value = newData.products.pageInfo
-    }
-  }, { immediate: true })
-  
-  // Computed properties
-  const filteredProducts = computed(() => {
-    if (selectedFilter.value === 'all') {
-      return allProducts.value
-    }
-    
-    return allProducts.value.filter(product => {
-      const tags = product.node.tags.map(tag => tag.toLowerCase())
-      const productType = product.node.productType.toLowerCase()
-      
-      switch (selectedFilter.value) {
-        case 'hoodies':
-          return tags.includes('hoodie') || productType.includes('hoodie')
-        case 't-shirts':
-          return tags.includes('t-shirt') || tags.includes('tshirt') || productType.includes('t-shirt')
-        case 'accessories':
-          return tags.includes('accessory') || productType.includes('accessory')
-        case 'new':
-          const thirtyDaysAgo = new Date()
-          thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30)
-          return new Date(product.node.createdAt) > thirtyDaysAgo
-        default:
-          return true
-      }
-    })
-  })
-  
-  const hasNextPage = computed(() => {
-    return pageInfo.value?.hasNextPage || false
-  })
-  
-  // Methods
-  const loadMore = async () => {
-    if (!hasNextPage.value || loadingMore.value) return
-    
-    loadingMore.value = true
-    
-    try {
-      const moreData = await getProducts(20, pageInfo.value.endCursor)
-      if (moreData?.products) {
-        allProducts.value = [...allProducts.value, ...moreData.products.edges]
-        pageInfo.value = moreData.products.pageInfo
-      }
-    } catch (err) {
-      console.error('Failed to load more products:', err)
-    } finally {
-      loadingMore.value = false
-    }
-  }
-// SEO
-useHead({
-  title: 'Bounced - Premium Streetwear for Music Producers',
-  meta: [
-    { name: 'description', content: 'Premium streetwear designed for music producers. Elevate your style with our exclusive collection of high-quality apparel.' },
-    { property: 'og:title', content: 'Bounced - Premium Streetwear for Music Producers' },
-    { property: 'og:description', content: 'Premium streetwear designed for music producers. Elevate your style with our exclusive collection of high-quality apparel.' },
-    { property: 'og:image', content: '/basic-shapes-banner-image.jpg' },
-    { property: 'og:type', content: 'website' }
-  ]
-})
-  
-</script>
-
 <template>
   <div>
     <!-- Hero Section -->
@@ -106,10 +8,9 @@ useHead({
           src="/basic-shapes-banner-image.jpg"
           alt="Bounced Hero"
           class="w-full h-full object-cover"
-        >
+        />
         <div class="absolute inset-0 bg-black bg-opacity-60"></div>
       </div>
-      
       <!-- Content -->
       <div class="relative z-10 text-center px-4 max-w-4xl mx-auto">
         <div class="mb-6 animate-fade-in">
@@ -117,7 +18,7 @@ useHead({
             src="/bounced-text-blue-750px-width.png" 
             alt="Bounced" 
             class="h-16 md:h-24 w-auto mx-auto"
-          >
+          />
         </div>
         <p class="text-xl md:text-2xl text-gray-100 mb-8 animate-slide-up text-shadow">
           Premium streetwear designed for music producers
@@ -135,7 +36,6 @@ useHead({
           </NuxtLink>
         </div>
       </div>
-
       <!-- Scroll Indicator -->
       <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce-slow">
         <svg class="w-6 h-6 text-gray-100" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -156,66 +56,42 @@ useHead({
           </p>
         </div>
 
-
-        <template>
-  <div class="card group cursor-pointer" @click="navigateToProduct">
-    <div class="relative overflow-hidden rounded-lg mb-4">
-      <img 
-        :src="product.images.edges[0]?.node.url || '/placeholder-product.jpg'"
-        :alt="product.title"
-        class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-105"
-      >
-      <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300"></div>
-      <div class="absolute top-4 right-4">
-        <span v-if="isOnSale" class="bg-red-500 text-white px-2 py-1 rounded-full text-sm font-semibold">
-          Sale
-        </span>
-      </div>
-    </div>
-    
-    <div class="space-y-2">
-      <h3 class="text-lg font-semibold text-gray-100 group-hover:text-primary-400 transition-colors duration-300">
-        {{ product.title }}
-      </h3>
-      
-      <p class="text-gray-400 text-sm line-clamp-2">
-        {{ product.description }}
-      </p>
-      
-      <div class="flex items-center justify-between">
-        <div class="flex items-center space-x-2">
-          <span class="text-xl font-bold text-primary-400">
-            ${{ minPrice }}
-          </span>
-          <span v-if="maxPrice !== minPrice" class="text-gray-500">
-            - ${{ maxPrice }}
-          </span>
+        <!-- 1) Loading State -->
+        <div v-if="pending" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+          <div v-for="i in 4" :key="i" class="card animate-pulse">
+            <div class="bg-dark-700 h-64 rounded-lg mb-4"></div>
+            <div class="space-y-2">
+              <div class="bg-dark-700 h-6 rounded w-3/4"></div>
+              <div class="bg-dark-700 h-4 rounded w-full"></div>
+              <div class="bg-dark-700 h-4 rounded w-1/2"></div>
+            </div>
+          </div>
         </div>
-        
-        <button 
-          @click.stop="quickAdd"
-          class="bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-lg transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 focus:ring-offset-dark-900"
-        >
-          Quick Add
-        </button>
+
+        <!-- 2) Error State -->
+        <div v-else-if="error" class="text-center text-red-400 py-12">
+          <p class="mb-4">Failed to load products. Please try again later.</p>
+          <button @click="refresh" class="btn-primary">Try Again</button>
+        </div>
+
+        <!-- 3) Product Grid -->
+        <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+          <ProductCard 
+            v-for="edge in allProducts" 
+            :key="edge.node.id" 
+            :product="edge.node" 
+          />
+        </div>
+
+        <div class="text-center mt-12">
+          <NuxtLink to="/products" class="btn-primary text-lg px-8 py-4">
+            View All Products
+          </NuxtLink>
+        </div>
       </div>
-    </div>
-  </div>
-</template>
+    </section>
 
-
-
-        
-
-        <!-- now fully SSR’d -->
-      <FeaturedProducts />
-      <div class="text-center mt-12">
-        <NuxtLink to="/products" class="btn-primary">View All Products</NuxtLink>
-      </div>
-    </div>
-  </section>
-
-    <!-- Features Section -->
+    <!-- Why Choose Bounced -->
     <section class="py-20 bg-dark-900">
       <div class="container mx-auto px-4">
         <div class="text-center mb-16">
@@ -223,37 +99,28 @@ useHead({
             Why Choose <span class="gradient-text">Bounced</span>
           </h2>
         </div>
-
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div class="text-center">
             <div class="w-16 h-16 bg-primary-600 rounded-full flex items-center justify-center mx-auto mb-6">
-              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-              </svg>
+              <!-- icon -->
             </div>
             <h3 class="text-xl font-semibold text-gray-100 mb-4">Premium Quality</h3>
             <p class="text-gray-400">
               High-quality materials and construction ensure your gear lasts through countless studio sessions.
             </p>
           </div>
-
           <div class="text-center">
             <div class="w-16 h-16 bg-primary-600 rounded-full flex items-center justify-center mx-auto mb-6">
-              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-              </svg>
+              <!-- icon -->
             </div>
             <h3 class="text-xl font-semibold text-gray-100 mb-4">Producer Inspired</h3>
             <p class="text-gray-400">
               Designs inspired by the music production community, for producers by producers.
             </p>
           </div>
-
           <div class="text-center">
             <div class="w-16 h-16 bg-primary-600 rounded-full flex items-center justify-center mx-auto mb-6">
-              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-              </svg>
+              <!-- icon -->
             </div>
             <h3 class="text-xl font-semibold text-gray-100 mb-4">Fast Shipping</h3>
             <p class="text-gray-400">
@@ -278,7 +145,7 @@ useHead({
             type="email" 
             placeholder="Enter your email"
             class="flex-1 px-4 py-3 bg-dark-900 border border-dark-800 rounded-lg text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-          >
+          />
           <button class="btn-primary px-6 py-3">
             Subscribe
           </button>
@@ -287,3 +154,39 @@ useHead({
     </section>
   </div>
 </template>
+
+<script setup lang="ts">
+import { ref, watch } from 'vue'
+import { useShopify } from '~/composables/useShopify'
+import { useHead }     from '#app'
+import ProductCard     from '~/components/ProductCard.vue'
+
+// SEO meta
+useHead({
+  title: 'Bounced - Premium Streetwear for Music Producers',
+  meta: [
+    { name: 'description', content: 'Premium streetwear designed for music producers. Elevate your style with our exclusive collection of high-quality apparel.' },
+    { property: 'og:title', content: 'Bounced - Premium Streetwear for Music Producers' },
+    { property: 'og:description', content: 'Premium streetwear designed for music producers. Elevate your style with our exclusive collection of high-quality apparel.' },
+    { property: 'og:image', content: '/basic-shapes-banner-image.jpg' },
+    { property: 'og:type', content: 'website' }
+  ]
+})
+
+// Fetch 4 featured products on both server and client
+const { getProducts } = useShopify()
+const allProducts     = ref<{ node: any }[]>([])
+const pageInfo        = ref<{ hasNextPage: boolean; endCursor: string } | null>(null)
+
+const { data: productsData, pending, error, refresh } = await useAsyncData(
+  'featured-products',
+  () => getProducts(4)
+)
+
+watch(productsData, (d) => {
+  if (d?.products) {
+    allProducts.value = d.products.edges
+    pageInfo.value    = d.products.pageInfo
+  }
+}, { immediate: true })
+</script>
