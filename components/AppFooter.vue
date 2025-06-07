@@ -54,9 +54,16 @@
       </div>
 
       <div class="border-t border-dark-800 mt-8 pt-8 text-center">
-        <p class="text-gray-500">
-          © {{ currentYear || '2025' }} Dezolent, LLC. All rights reserved.
-        </p>
+        <ClientOnly>
+          <p class="text-gray-500">
+            © {{ currentYear }} Dezolent, LLC. All rights reserved.
+          </p>
+          <template #fallback>
+            <p class="text-gray-500">
+              © 2025 Dezolent, LLC. All rights reserved.
+            </p>
+          </template>
+        </ClientOnly>
       </div>
     </div>
   </footer>
