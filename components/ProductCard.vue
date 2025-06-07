@@ -15,11 +15,11 @@
     </div>
     
     <div class="space-y-2">
-      <h3 class="text-lg font-semibold text-white group-hover:text-primary-400 transition-colors duration-300">
+      <h3 class="text-lg font-semibold text-gray-100 group-hover:text-primary-400 transition-colors duration-300">
         {{ product.title }}
       </h3>
       
-      <p class="text-dark-300 text-sm line-clamp-2">
+      <p class="text-gray-400 text-sm line-clamp-2">
         {{ product.description }}
       </p>
       
@@ -28,14 +28,14 @@
           <span class="text-xl font-bold text-primary-400">
             ${{ minPrice }}
           </span>
-          <span v-if="maxPrice !== minPrice" class="text-dark-400">
+          <span v-if="maxPrice !== minPrice" class="text-gray-500">
             - ${{ maxPrice }}
           </span>
         </div>
         
         <button 
           @click.stop="quickAdd"
-          class="bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-lg transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 focus:ring-offset-dark-800"
+          class="bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-lg transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 focus:ring-offset-dark-900"
         >
           Quick Add
         </button>

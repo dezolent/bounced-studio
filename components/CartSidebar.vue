@@ -10,17 +10,17 @@
     <!-- Sidebar -->
     <div 
       :class="[
-        'fixed top-0 right-0 h-full w-full max-w-md bg-dark-800 shadow-xl z-50 transform transition-transform duration-300 ease-in-out',
+        'fixed top-0 right-0 h-full w-full max-w-md bg-dark-900 shadow-xl z-50 transform transition-transform duration-300 ease-in-out',
         isOpen ? 'translate-x-0' : 'translate-x-full'
       ]"
     >
       <div class="flex flex-col h-full">
         <!-- Header -->
-        <div class="flex items-center justify-between p-6 border-b border-dark-700">
-          <h2 class="text-xl font-semibold text-white">Shopping Cart</h2>
+        <div class="flex items-center justify-between p-6 border-b border-dark-800">
+          <h2 class="text-xl font-semibold text-gray-100">Shopping Cart</h2>
           <button 
             @click="closeCart"
-            class="text-dark-400 hover:text-white transition-colors duration-300"
+            class="text-gray-500 hover:text-gray-100 transition-colors duration-300"
           >
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
@@ -31,8 +31,8 @@
         <!-- Cart Items -->
         <div class="flex-1 overflow-y-auto p-6">
           <ClientOnly>
-            <div v-if="cartStore.isEmpty" class="text-center text-dark-400 mt-8">
-              <svg class="w-16 h-16 mx-auto mb-4 text-dark-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div v-if="cartStore.isEmpty" class="text-center text-gray-500 mt-8">
+              <svg class="w-16 h-16 mx-auto mb-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.5 6M7 13l-1.5 6m0 0h9m-9 0h9"></path>
               </svg>
               <p class="text-lg">Your cart is empty</p>
@@ -43,7 +43,7 @@
               <div 
                 v-for="item in cartStore.items" 
                 :key="item.variantId"
-                class="flex items-center space-x-4 bg-dark-700 rounded-lg p-4"
+                class="flex items-center space-x-4 bg-dark-800 rounded-lg p-4"
               >
                 <img 
                   v-if="item.image"
@@ -52,21 +52,21 @@
                   class="w-16 h-16 object-cover rounded-lg"
                 >
                 <div class="flex-1">
-                  <h3 class="text-white font-medium">{{ item.title }}</h3>
-                  <p class="text-dark-300 text-sm">{{ item.variant }}</p>
+                  <h3 class="text-gray-100 font-medium">{{ item.title }}</h3>
+                  <p class="text-gray-400 text-sm">{{ item.variant }}</p>
                   <p class="text-primary-400 font-semibold">${{ item.price.toFixed(2) }}</p>
                 </div>
                 <div class="flex items-center space-x-2">
                   <button 
                     @click="cartStore.updateQuantity(item.variantId, item.quantity - 1)"
-                    class="w-8 h-8 rounded-full bg-dark-600 text-white flex items-center justify-center hover:bg-dark-500 transition-colors duration-300"
+                    class="w-8 h-8 rounded-full bg-dark-700 text-gray-100 flex items-center justify-center hover:bg-dark-600 transition-colors duration-300"
                   >
                     -
                   </button>
-                  <span class="text-white w-8 text-center">{{ item.quantity }}</span>
+                  <span class="text-gray-100 w-8 text-center">{{ item.quantity }}</span>
                   <button 
                     @click="cartStore.updateQuantity(item.variantId, item.quantity + 1)"
-                    class="w-8 h-8 rounded-full bg-dark-600 text-white flex items-center justify-center hover:bg-dark-500 transition-colors duration-300"
+                    class="w-8 h-8 rounded-full bg-dark-700 text-gray-100 flex items-center justify-center hover:bg-dark-600 transition-colors duration-300"
                   >
                     +
                   </button>
@@ -86,9 +86,9 @@
 
         <!-- Footer -->
         <ClientOnly>
-          <div v-if="!cartStore.isEmpty" class="border-t border-dark-700 p-6">
+          <div v-if="!cartStore.isEmpty" class="border-t border-dark-800 p-6">
             <div class="flex justify-between items-center mb-4">
-              <span class="text-lg font-semibold text-white">Total:</span>
+              <span class="text-lg font-semibold text-gray-100">Total:</span>
               <span class="text-xl font-bold text-primary-400">${{ cartStore.totalPrice.toFixed(2) }}</span>
             </div>
             <button 
