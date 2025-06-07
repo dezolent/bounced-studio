@@ -16,7 +16,7 @@
           <!-- Contact Form -->
           <div class="card">
             <h2 class="text-2xl font-bold text-white mb-6">Send us a Message</h2>
-            <form @submit.prevent="submitForm" class="space-y-6">
+            <form @submit.prevent="submitForm" class="space-y-6" name="contact" netlify>
               <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label for="firstName" class="block text-sm font-medium text-white mb-2">
