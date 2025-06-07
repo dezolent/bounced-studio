@@ -80,7 +80,6 @@ useHead({
       <div class="text-center mt-12">
         <NuxtLink to="/products" class="btn-primary">View All Products</NuxtLink>
       </div>
-      </div>
     </section>
 
     <!-- Features Section -->
