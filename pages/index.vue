@@ -94,35 +94,8 @@ useHead({
           </p>
         </div>
 
-        <div v-if="pending" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <div v-for="i in 6" :key="i" class="card animate-pulse">
-            <div class="bg-dark-800 h-64 rounded-lg mb-4"></div>
-            <div class="space-y-2">
-              <div class="bg-dark-800 h-6 rounded w-3/4"></div>
-              <div class="bg-dark-800 h-4 rounded w-full"></div>
-              <div class="bg-dark-800 h-4 rounded w-1/2"></div>
-            </div>
-          </div>
-        </div>
-
-        <div v-else-if="error" class="text-center text-red-400">
-          <p>Failed to load products. Please try again later.</p>
-          <button @click="refresh()" class="btn-primary mt-4">
-            Try Again
-          </button>
-        </div>
-
-        <div v-else-if="featuredProducts && featuredProducts.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <ProductCard 
-            v-for="product in featuredProducts" 
-            :key="product.node.id"
-            :product="product.node"
-          />
-        </div>
-
-        <div v-else class="text-center text-gray-500">
-          <p>No products available at the moment.</p>
-        </div>
+        <!-- now fully SSR’d -->
+      <FeaturedProducts />
 
         <div class="text-center mt-12">
           <NuxtLink to="/products" class="btn-primary text-lg px-8 py-4">
