@@ -67,14 +67,21 @@
 
         <div v-else-if="error" class="text-center text-red-400">
           <p>Failed to load products. Please try again later.</p>
+          <button @click="refresh()" class="btn-primary mt-4">
+            Try Again
+          </button>
         </div>
 
-        <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div v-else-if="featuredProducts && featuredProducts.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <ProductCard 
             v-for="product in featuredProducts" 
             :key="product.node.id"
             :product="product.node"
           />
+        </div>
+
+        <div v-else class="text-center text-dark-400">
+          <p>No products available at the moment.</p>
         </div>
 
         <div class="text-center mt-12">
@@ -161,13 +168,22 @@
 <script setup>
 const { getProducts } = useShopify()
 
-// Fetch featured products
-const { data: productsData, pending, error } = await useLazyAsyncData('featured-products', () => 
-  getProducts(6)
-)
+// Fetch featured products with better error handling
+const { data: productsData, pending, error, refresh } = await useLazyAsyncData('featured-products', async () => {
+  try {
+    const result = await getProducts(6)
+    return result
+  } catch (err) {
+    console.error('Failed to fetch featured products:', err)
+    throw err
+  }
+})
 
 const featuredProducts = computed(() => {
-  return productsData.value?.products?.edges || []
+  if (!productsData.value?.products?.edges) {
+    return []
+  }
+  return productsData.value.products.edges
 })
 
 // SEO
