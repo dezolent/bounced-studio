@@ -69,7 +69,7 @@
           </div>
         </div>
 
-        div v-else-if="error" class="text-center text-red-400">
+        <div v-else-if="error" class="text-center text-red-400">
           <p>Failed to load products. Please try again later.</p>
           <button @click="refresh()" class="btn-primary mt-4">
             Try Again
