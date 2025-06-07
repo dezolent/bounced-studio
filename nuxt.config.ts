@@ -9,6 +9,9 @@ export default defineNuxtConfig({
     '@pinia-plugin-persistedstate/nuxt'
   ],
   css: ['~/assets/css/main.css'],
+  imports: {
+    exclude: ['validate']
+  },
   runtimeConfig: {
     public: {
       shopifyStoreName: process.env.SHOPIFY_STORE_NAME || '8rtkam-zq.myshopify.com',
