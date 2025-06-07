@@ -11,7 +11,7 @@
       </div>
 
       <!-- Loading State -->
-      <div v-if="pending" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div v-if="isLoading" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         <div v-for="i in 6" :key="i" class="card animate-pulse">
           <div class="bg-dark-800 h-64 rounded-lg mb-4"></div>
           <div class="space-y-2">
@@ -23,17 +23,20 @@
       </div>
 
       <!-- Error State -->
-      <div v-else-if="error" class="text-center text-red-400">
-        <p>Failed to load products. Please try again later.</p>
-        <button @click="refresh()" class="btn-primary mt-4">
+      <div v-else-if="hasError" class="text-center text-red-400">
+        <svg class="w-16 h-16 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+        <p class="text-lg mb-4">Failed to load products. Please try again later.</p>
+        <button @click="loadProducts" class="btn-primary">
           Try Again
         </button>
       </div>
 
       <!-- Products Grid -->
-      <div v-else-if="featuredProducts && featuredProducts.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div v-else-if="products && products.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         <ProductCard 
-          v-for="product in featuredProducts" 
+          v-for="product in products" 
           :key="product.node.id"
           :product="product.node"
         />
@@ -41,7 +44,10 @@
 
       <!-- Empty State -->
       <div v-else class="text-center text-gray-500">
-        <p>No products available at the moment.</p>
+        <svg class="w-16 h-16 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2 2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path>
+        </svg>
+        <p class="text-lg">No products available at the moment.</p>
       </div>
 
       <div class="text-center mt-12">
@@ -56,21 +62,34 @@
 <script setup>
 const { getProducts } = useShopify()
 
-// Fetch featured products with better error handling
-const { data: productsData, pending, error, refresh } = await useLazyAsyncData('featured-products', async () => {
+// Reactive state
+const products = ref([])
+const isLoading = ref(true)
+const hasError = ref(false)
+
+// Load products function
+const loadProducts = async () => {
+  isLoading.value = true
+  hasError.value = false
+  
   try {
     const result = await getProducts(6)
-    return result
+    if (result?.products?.edges) {
+      products.value = result.products.edges
+    } else {
+      products.value = []
+    }
   } catch (err) {
     console.error('Failed to fetch featured products:', err)
-    throw err
+    hasError.value = true
+    products.value = []
+  } finally {
+    isLoading.value = false
   }
-})
+}
 
-const featuredProducts = computed(() => {
-  if (!productsData.value?.products?.edges) {
-    return []
-  }
-  return productsData.value.products.edges
+// Load products on mount
+onMounted(() => {
+  loadProducts()
 })
 </script>
