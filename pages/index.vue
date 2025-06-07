@@ -11,31 +11,35 @@
         />
         <div class="absolute inset-0 bg-black bg-opacity-60"></div>
       </div>
+      
       <!-- Content -->
-      <div class="relative z-10 text-center px-4 max-w-4xl mx-auto">
-        <div class="mb-6 animate-fade-in">
-          <img 
-            src="/bounced-text-blue-750px-width.png" 
-            alt="Bounced" 
-            class="h-16 md:h-24 w-auto mx-auto"
-          />
-        </div>
-        <p class="text-xl md:text-2xl text-gray-100 mb-8 animate-slide-up text-shadow">
-          Premium streetwear designed for music producers
-        </p>
-        <p class="text-lg text-gray-200 mb-12 max-w-2xl mx-auto animate-slide-up text-shadow">
-          Elevate your style with our exclusive collection. From studio sessions to street style, 
-          we've got you covered with premium quality apparel that speaks your language.
-        </p>
-        <div class="flex flex-col sm:flex-row gap-4 justify-center animate-slide-up">
-          <NuxtLink to="/products" class="btn-primary text-lg px-8 py-4">
-            Shop Collection
-          </NuxtLink>
-          <NuxtLink to="/about" class="btn-secondary text-lg px-8 py-4">
-            Learn More
-          </NuxtLink>
+      <div class="relative z-10 px-4 max-w-4xl mx-auto w-full">
+        <div class="text-center md:text-left">
+          <div class="mb-6 animate-fade-in">
+            <img 
+              src="/bounced-text-blue-750px-width.png" 
+              alt="Bounced" 
+              class="h-12 md:h-24 w-auto mx-auto md:mx-0"
+            />
+          </div>
+          <p class="text-lg md:text-2xl text-gray-100 mb-6 md:mb-8 animate-slide-up text-shadow">
+            Premium streetwear designed for music producers
+          </p>
+          <p class="text-base md:text-lg text-gray-200 mb-8 md:mb-12 max-w-2xl mx-auto md:mx-0 animate-slide-up text-shadow">
+            Elevate your style with our exclusive collection. From studio sessions to street style, 
+            we've got you covered with premium quality apparel that speaks your language.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start animate-slide-up">
+            <NuxtLink to="/products" class="btn-primary text-base md:text-lg px-6 md:px-8 py-3 md:py-4">
+              Shop Collection
+            </NuxtLink>
+            <NuxtLink to="/about" class="btn-secondary text-base md:text-lg px-6 md:px-8 py-3 md:py-4">
+              Learn More
+            </NuxtLink>
+          </div>
         </div>
       </div>
+
       <!-- Scroll Indicator -->
       <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce-slow">
         <svg class="w-6 h-6 text-gray-100" fill="none" stroke="currentColor" viewBox="0 0 24 24">
