@@ -1,20 +1,8 @@
 <script setup lang="ts">
   // → IMPORTS
-  import { ref, watch, computed, onMounted } from 'vue'
+  import { ref, watch, computed } from 'vue'
   import { useShopify } from '~/composables/useShopify'  
 
-  // 1) CLIENT-ONLY console override
-  onMounted(() => {
-    // this only runs in the browser, never during SSR
-    window.myFlag = true
-    const origError = console.error.bind(console)
-    console.error = (...args: any[]) => {
-      // your intercept logic…
-      origError(...args)
-    }
-  })
-
-  // 2) your existing logic
   const { getProducts } = useShopify()
   
   // Reactive data
@@ -32,7 +20,6 @@
   ]
   
   // Fetch initial products
-  // Fetch initial products (on server *and* client)
   const { data: productsData, pending, error, refresh } = await useAsyncData(
     'all-products',
     () => getProducts(20)
