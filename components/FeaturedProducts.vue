@@ -1,59 +1,76 @@
-<!-- /components/FeaturedProducts.vue -->
-<script setup lang="ts">
-import { ref, watch, computed } from 'vue'
-import { useShopify } from '~/composables/useShopify'
-
-const { getProducts } = useShopify()
-const allProducts  = ref([])
-const pageInfo     = ref(null)
-
-// IMPORTANT: useAsyncData so it SSRs
-const { data, pending, error, refresh } = await useAsyncData(
-  'featured-products',
-  () => getProducts(6)
-)
-
-watch(data, (d) => {
-  if (d?.products) {
-    allProducts.value = d.products.edges
-    pageInfo.value    = d.products.pageInfo
-  }
-}, { immediate: true })
-
-const hasNextPage = computed(() => pageInfo.value?.hasNextPage)
-</script>
-
 <template>
-  <!-- Loading State -->
-  <div v-if="pending" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-    <div v-for="i in 12" :key="i" class="card animate-pulse">
-      <div class="bg-dark-700 h-64 rounded-lg mb-4"></div>
-      <div class="space-y-2">
-        <div class="bg-dark-700 h-6 rounded w-3/4"></div>
-        <div class="bg-dark-700 h-4 rounded w-full"></div>
-        <div class="bg-dark-700 h-4 rounded w-1/2"></div>
+  <section class="py-20 bg-dark-950">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold text-gray-100 mb-6">
+          Featured <span class="gradient-text">Products</span>
+        </h2>
+        <p class="text-xl text-gray-400 max-w-2xl mx-auto">
+          Discover our latest drops designed specifically for the music production community
+        </p>
+      </div>
+
+      <!-- Loading State -->
+      <div v-if="pending" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div v-for="i in 6" :key="i" class="card animate-pulse">
+          <div class="bg-dark-800 h-64 rounded-lg mb-4"></div>
+          <div class="space-y-2">
+            <div class="bg-dark-800 h-6 rounded w-3/4"></div>
+            <div class="bg-dark-800 h-4 rounded w-full"></div>
+            <div class="bg-dark-800 h-4 rounded w-1/2"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Error State -->
+      <div v-else-if="error" class="text-center text-red-400">
+        <p>Failed to load products. Please try again later.</p>
+        <button @click="refresh()" class="btn-primary mt-4">
+          Try Again
+        </button>
+      </div>
+
+      <!-- Products Grid -->
+      <div v-else-if="featuredProducts && featuredProducts.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <ProductCard 
+          v-for="product in featuredProducts" 
+          :key="product.node.id"
+          :product="product.node"
+        />
+      </div>
+
+      <!-- Empty State -->
+      <div v-else class="text-center text-gray-500">
+        <p>No products available at the moment.</p>
+      </div>
+
+      <div class="text-center mt-12">
+        <NuxtLink to="/products" class="btn-primary text-lg px-8 py-4">
+          View All Products
+        </NuxtLink>
       </div>
     </div>
-  </div>
-  
-  <!-- Error State -->
-  <div v-else-if="error" class="text-center text-red-400 py-12">
-    <svg class="w-16 h-16 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-    </svg>
-    <h3 class="text-xl font-semibold mb-2">Failed to load products</h3>
-    <p class="text-dark-400 mb-4">Please check your connection and try again</p>
-    <button @click="refresh()" class="btn-primary">
-      Try Again
-    </button>
-  </div>
-
-  <!-- Products Grid -->
-  <div v-else class="grid …">
-    <ProductCard
-      v-for="p in allProducts"
-      :key="p.node.id"
-      :product="p.node"
-    />
-  </div>
+  </section>
 </template>
+
+<script setup>
+const { getProducts } = useShopify()
+
+// Fetch featured products with better error handling
+const { data: productsData, pending, error, refresh } = await useLazyAsyncData('featured-products', async () => {
+  try {
+    const result = await getProducts(6)
+    return result
+  } catch (err) {
+    console.error('Failed to fetch featured products:', err)
+    throw err
+  }
+})
+
+const featuredProducts = computed(() => {
+  if (!productsData.value?.products?.edges) {
+    return []
+  }
+  return productsData.value.products.edges
+})
+</script>
