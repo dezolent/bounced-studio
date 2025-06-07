@@ -24,7 +24,7 @@ const hasNextPage = computed(() => pageInfo.value?.hasNextPage)
 </script>
 
 <template>
-
+class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
   <!-- Loading State -->
   <div v-if="pending" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
     <div v-for="i in 12" :key="i" class="card animate-pulse">
