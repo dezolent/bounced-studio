@@ -160,6 +160,7 @@
               <h2 class="text-2xl font-bold text-gray-100 mb-4">7. Indemnification</h2>
               <p class="text-gray-400">
                 You agree to indemnify, defend, and hold harmless Dezolent, LLC, its officers, directors, employees, agents, and affiliates from and against all claims, liabilities, damages, losses, and expenses (including reasonable attorneys' fees) arising out of or in any way connected with:
+                )
               </p>
               <ul class="list-disc list-inside text-gray-400 space-y-2 mt-2">
                 <li>Your breach of these Terms</li>
