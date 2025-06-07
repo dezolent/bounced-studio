@@ -1,9 +1,112 @@
 <script setup lang="ts">
-const { data: products, error, refresh } = await useAsyncData(
-  'featured-products',
-  () => $fetch('/api/shopify/products?limit=6')
-)
+  // → IMPORTS
+  import { ref, watch, computed, onMounted } from 'vue'
+  import { useShopify } from '~/composables/useShopify'  
+
+  // 1) CLIENT-ONLY console override
+  onMounted(() => {
+    // this only runs in the browser, never during SSR
+    window.myFlag = true
+    const origError = console.error.bind(console)
+    console.error = (...args: any[]) => {
+      // your intercept logic…
+      origError(...args)
+    }
+  })
+
+  // 2) your existing logic
+  const { getProducts } = useShopify()
+  
+  // Reactive data
+  const selectedFilter = ref('all')
+  const loadingMore = ref(false)
+  const allProducts = ref([])
+  const pageInfo = ref(null)
+  
+  const filters = [
+    { label: 'All Products', value: 'all' },
+    { label: 'Hoodies', value: 'hoodies' },
+    { label: 'T-Shirts', value: 't-shirts' },
+    { label: 'Accessories', value: 'accessories' },
+    { label: 'New Arrivals', value: 'new' }
+  ]
+  
+  // Fetch initial products
+  // Fetch initial products (on server *and* client)
+  const { data: productsData, pending, error, refresh } = await useAsyncData(
+    'all-products',
+    () => getProducts(20)
+  )
+  
+  // Watch for data changes
+  watch(productsData, (newData) => {
+    if (newData?.products) {
+      allProducts.value = newData.products.edges
+      pageInfo.value = newData.products.pageInfo
+    }
+  }, { immediate: true })
+  
+  // Computed properties
+  const filteredProducts = computed(() => {
+    if (selectedFilter.value === 'all') {
+      return allProducts.value
+    }
+    
+    return allProducts.value.filter(product => {
+      const tags = product.node.tags.map(tag => tag.toLowerCase())
+      const productType = product.node.productType.toLowerCase()
+      
+      switch (selectedFilter.value) {
+        case 'hoodies':
+          return tags.includes('hoodie') || productType.includes('hoodie')
+        case 't-shirts':
+          return tags.includes('t-shirt') || tags.includes('tshirt') || productType.includes('t-shirt')
+        case 'accessories':
+          return tags.includes('accessory') || productType.includes('accessory')
+        case 'new':
+          const thirtyDaysAgo = new Date()
+          thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30)
+          return new Date(product.node.createdAt) > thirtyDaysAgo
+        default:
+          return true
+      }
+    })
+  })
+  
+  const hasNextPage = computed(() => {
+    return pageInfo.value?.hasNextPage || false
+  })
+  
+  // Methods
+  const loadMore = async () => {
+    if (!hasNextPage.value || loadingMore.value) return
+    
+    loadingMore.value = true
+    
+    try {
+      const moreData = await getProducts(20, pageInfo.value.endCursor)
+      if (moreData?.products) {
+        allProducts.value = [...allProducts.value, ...moreData.products.edges]
+        pageInfo.value = moreData.products.pageInfo
+      }
+    } catch (err) {
+      console.error('Failed to load more products:', err)
+    } finally {
+      loadingMore.value = false
+    }
+  }
+  
+  // SEO
+  useHead({
+    title: 'All Products - Bounced',
+    meta: [
+      { name: 'description', content: 'Browse our complete collection of premium streetwear for music producers. Find hoodies, t-shirts, accessories and more.' },
+      { property: 'og:title', content: 'All Products - Bounced' },
+      { property: 'og:description', content: 'Browse our complete collection of premium streetwear for music producers. Find hoodies, t-shirts, accessories and more.' }
+    ]
+  })
 </script>
+
 <template>
   <div class="min-h-screen pt-24 pb-12">
     <div class="container mx-auto px-4">
@@ -90,96 +193,3 @@ const { data: products, error, refresh } = await useAsyncData(
     </div>
   </div>
 </template>
-
-<script setup>
-const { getProducts } = useShopify()
-
-// Reactive data
-const selectedFilter = ref('all')
-const loadingMore = ref(false)
-const allProducts = ref([])
-const pageInfo = ref(null)
-
-const filters = [
-  { label: 'All Products', value: 'all' },
-  { label: 'Hoodies', value: 'hoodies' },
-  { label: 'T-Shirts', value: 't-shirts' },
-  { label: 'Accessories', value: 'accessories' },
-  { label: 'New Arrivals', value: 'new' }
-]
-
-// Fetch initial products
-// Fetch initial products (on server *and* client)
-const { data: productsData, pending, error, refresh } = await useAsyncData(
-  'all-products',
-  () => getProducts(20)
-)
-
-// Watch for data changes
-watch(productsData, (newData) => {
-  if (newData?.products) {
-    allProducts.value = newData.products.edges
-    pageInfo.value = newData.products.pageInfo
-  }
-}, { immediate: true })
-
-// Computed properties
-const filteredProducts = computed(() => {
-  if (selectedFilter.value === 'all') {
-    return allProducts.value
-  }
-  
-  return allProducts.value.filter(product => {
-    const tags = product.node.tags.map(tag => tag.toLowerCase())
-    const productType = product.node.productType.toLowerCase()
-    
-    switch (selectedFilter.value) {
-      case 'hoodies':
-        return tags.includes('hoodie') || productType.includes('hoodie')
-      case 't-shirts':
-        return tags.includes('t-shirt') || tags.includes('tshirt') || productType.includes('t-shirt')
-      case 'accessories':
-        return tags.includes('accessory') || productType.includes('accessory')
-      case 'new':
-        const thirtyDaysAgo = new Date()
-        thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30)
-        return new Date(product.node.createdAt) > thirtyDaysAgo
-      default:
-        return true
-    }
-  })
-})
-
-const hasNextPage = computed(() => {
-  return pageInfo.value?.hasNextPage || false
-})
-
-// Methods
-const loadMore = async () => {
-  if (!hasNextPage.value || loadingMore.value) return
-  
-  loadingMore.value = true
-  
-  try {
-    const moreData = await getProducts(20, pageInfo.value.endCursor)
-    if (moreData?.products) {
-      allProducts.value = [...allProducts.value, ...moreData.products.edges]
-      pageInfo.value = moreData.products.pageInfo
-    }
-  } catch (err) {
-    console.error('Failed to load more products:', err)
-  } finally {
-    loadingMore.value = false
-  }
-}
-
-// SEO
-useHead({
-  title: 'All Products - Bounced',
-  meta: [
-    { name: 'description', content: 'Browse our complete collection of premium streetwear for music producers. Find hoodies, t-shirts, accessories and more.' },
-    { property: 'og:title', content: 'All Products - Bounced' },
-    { property: 'og:description', content: 'Browse our complete collection of premium streetwear for music producers. Find hoodies, t-shirts, accessories and more.' }
-  ]
-})
-</script>
