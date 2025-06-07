@@ -80,7 +80,8 @@ useHead({
       <div class="text-center mt-12">
         <NuxtLink to="/products" class="btn-primary">View All Products</NuxtLink>
       </div>
-    </section>
+    </div>
+  </section>
 
     <!-- Features Section -->
     <section class="py-20 bg-dark-900">
