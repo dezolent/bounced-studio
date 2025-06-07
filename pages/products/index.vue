@@ -1,3 +1,9 @@
+<script setup lang="ts">
+const { data: products, error, refresh } = await useAsyncData(
+  'featured-products',
+  () => $fetch('/api/shopify/products?limit=6')
+)
+</script>
 <template>
   <div class="min-h-screen pt-24 pb-12">
     <div class="container mx-auto px-4">
