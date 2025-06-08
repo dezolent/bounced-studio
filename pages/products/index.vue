@@ -42,14 +42,17 @@
     return allProducts.value.filter(product => {
       const tags = product.node.tags.map(tag => tag.toLowerCase())
       const productType = product.node.productType.toLowerCase()
-      
+      console.log(product.node.title)
+      console.log(tags)
+      console.log(productType)
+
       switch (selectedFilter.value) {
         case 'hoodies':
           return tags.includes('hoodie') || productType.includes('hoodie')
         case 't-shirts':
           return tags.includes('t-shirt') || tags.includes('tshirt') || productType.includes('t-shirt')
         case 'accessories':
-          return tags.includes('accessory') || productType.includes('accessory')
+          return tags.includes('accessory') || productType.includes('accessory') || productType.includes('accessories')
         case 'new':
           const thirtyDaysAgo = new Date()
           thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30)

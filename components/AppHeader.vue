@@ -19,9 +19,9 @@
           <NuxtLink to="/products" class="text-gray-100 hover:text-primary-400 transition-colors duration-300">
             Products
           </NuxtLink>
-          <NuxtLink to="https://app.bounced.studio" class="text-gray-100 hover:text-primary-400 transition-colors duration-300">
-            Bounced Studio App
-          </NuxtLink>
+<!--          <NuxtLink to="https://app.bounced.studio" class="text-gray-100 hover:text-primary-400 transition-colors duration-300">-->
+<!--            Bounced Studio App-->
+<!--          </NuxtLink>-->
           <NuxtLink to="/about" class="text-gray-100 hover:text-primary-400 transition-colors duration-300">
             About
           </NuxtLink>

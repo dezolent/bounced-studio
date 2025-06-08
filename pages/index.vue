@@ -13,7 +13,7 @@
       </div>
       
       <!-- Content -->
-      <div class="relative z-10 px-4 max-w-4xl mx-auto w-full">
+      <div class="relative z-10 px-8 mx-8 w-full">
         <div class="text-center md:text-left">
           <div class="mb-6 animate-fade-in">
             <img 
