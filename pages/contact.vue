@@ -158,7 +158,7 @@
                     <p class="text-white font-medium">Address</p>
                     <p class="text-dark-300">
                       18412 Homestead Avenue, Apt. 132<br>
-                      Miami, CA 33157<br>
+                      Miami, FL 33157<br>
                       United States
                     </p>
                   </div>
