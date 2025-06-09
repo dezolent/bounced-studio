@@ -85,45 +85,20 @@
       <!-- Team Section -->
       <div class="mb-20">
         <h2 class="text-3xl font-bold text-gray-100 text-center mb-12">The Team</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="grid gap-8">
           <div class="card text-center">
             <img 
-              src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg"
+              src="/dezolent-profile-image.jpg"
               alt="Team member"
               class="w-24 h-24 rounded-full mx-auto mb-4 object-cover"
             >
-            <h3 class="text-lg font-semibold text-gray-100 mb-2">Alex Chen</h3>
-            <p class="text-primary-400 mb-2">Founder & Creative Director</p>
+            <h3 class="text-lg font-semibold text-gray-100 mb-2">Dezolent</h3>
+            <p class="text-primary-400 mb-2">Founder</p>
             <p class="text-gray-400 text-sm">
-              Producer turned designer with 10+ years in the music industry. Passionate about bridging music and fashion.
+              With over 10 million streams and a decade of experience in the music industry, Dezolent is passionate about creating apparel that resonates with the music production community.
             </p>
           </div>
 
-          <div class="card text-center">
-            <img 
-              src="https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg"
-              alt="Team member"
-              class="w-24 h-24 rounded-full mx-auto mb-4 object-cover"
-            >
-            <h3 class="text-lg font-semibold text-gray-100 mb-2">Maya Rodriguez</h3>
-            <p class="text-primary-400 mb-2">Head of Design</p>
-            <p class="text-gray-400 text-sm">
-              Fashion designer with a background in streetwear and a deep love for hip-hop culture and production.
-            </p>
-          </div>
-
-          <div class="card text-center">
-            <img 
-              src="https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg"
-              alt="Team member"
-              class="w-24 h-24 rounded-full mx-auto mb-4 object-cover"
-            >
-            <h3 class="text-lg font-semibold text-gray-100 mb-2">Jordan Smith</h3>
-            <p class="text-primary-400 mb-2">Community Manager</p>
-            <p class="text-gray-400 text-sm">
-              Beat maker and community builder who keeps us connected with producers worldwide.
-            </p>
-          </div>
         </div>
       </div>
 
