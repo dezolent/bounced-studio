@@ -24,6 +24,7 @@
                   </label>
                   <input
                     id="firstName"
+                    name="firstName"
                     v-model="form.firstName"
                     type="text"
                     required
@@ -37,6 +38,7 @@
                   </label>
                   <input
                     id="lastName"
+                    name="lastName"
                     v-model="form.lastName"
                     type="text"
                     required
@@ -52,6 +54,7 @@
                 </label>
                 <input
                   id="email"
+                  name="email"
                   v-model="form.email"
                   type="email"
                   required
@@ -66,6 +69,7 @@
                 </label>
                 <select
                   id="subject"
+                  name="subject"
                   v-model="form.subject"
                   required
                   class="w-full px-4 py-3 bg-dark-700 border border-dark-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300"
@@ -86,6 +90,7 @@
                 </label>
                 <textarea
                   id="message"
+                  name="message"
                   v-model="form.message"
                   rows="6"
                   required
