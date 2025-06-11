@@ -1,8 +1,16 @@
-# Nuxt 3 Minimal Starter
+# Nuxt/Shopify Integrated E-Commerce Store
+
+> Work In Progress - Development Phase
+
+E-commerce website built with the Nuxt / Vue framework and using the Shopify Storefront API for product display, cart, and checkout functionality.
+
+https://bounced.studio/
+
+## Nuxt 3 Minimal Starter
 
 Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
-## Setup
+### Setup
 
 Make sure to install the dependencies:
 
@@ -17,7 +25,7 @@ npm install
 pnpm install
 ```
 
-## Development Server
+### Development Server
 
 Start the development server on http://localhost:3000
 
@@ -25,7 +33,7 @@ Start the development server on http://localhost:3000
 npm run dev
 ```
 
-## Production
+### Production
 
 Build the application for production:
 
