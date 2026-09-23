@@ -1,0 +1,36 @@
+# Bounced
+
+> Bounced builds and maintains artist websites and supports the technical systems around music, shows, merchandise, fan links, domains, email, and related accounts.
+
+- Canonical site: https://bounced.studio/
+- Project inquiries: https://bounced.studio/#contact
+- Email: artists@bounced.studio
+
+## Company
+
+Bounced is operated by Dezolent, LLC. It provides artist website development and digital operations services. Bounced is not a booking agency, record label, or provider of traditional artist management.
+
+## Current services
+
+- Custom artist websites for releases, shows, merchandise, biography, and fan actions.
+- Connections to supported music, show, store, email, and account services where appropriate for the artist.
+- Optional domain, hosting, website update, search-foundation, and technical maintenance support.
+- Searchable or filterable music catalogs built from reviewed release data.
+- Release fan-link routes on an artist's own domain, with platform destinations reviewed for accuracy.
+- Private catalog reviews that can compare Spotify recordings with The MLC's musical-work records where source access and coverage permit. Results require human review and do not prove ownership, missing royalties, or payment eligibility.
+
+## Selected work
+
+- Morbeato: https://morbeato.com/
+- Dezolent: https://dezolent.com/
+- Coptr: https://coptr.me/
+
+## Examples
+
+- Dezolent searchable music catalog: https://dezolent.com/tracks
+- Morbeato music catalog: https://morbeato.com/music/
+- Release fan-link example: https://dezolent.com/stream/gone-coptr-remix
+
+## In development
+
+ArtistOps is a dashboard concept for connected artist data. It is in development and is not a currently available product. Current Bounced services are the website and technical services listed above.

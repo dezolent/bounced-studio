@@ -1,0 +1,35 @@
+---
+import '../styles/global.css';
+
+const title = 'Page not found — Bounced';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="theme-color" content="#07090c" />
+    <meta name="robots" content="noindex, follow" />
+    <link rel="icon" type="image/png" href="/bounced-logo.png" />
+    <title>{title}</title>
+  </head>
+  <body class="not-found-page">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header not-found-header">
+      <a class="brand" href="/" aria-label="Bounced home">
+        <img src="/bounced-wordmark-light-blue.png" alt="Bounced" width="1500" height="300" />
+      </a>
+      <a class="header-cta" href="/#contact">Start a project <span aria-hidden="true">↗</span></a>
+    </header>
+    <main class="not-found" id="main">
+      <p class="kicker">404 / Page not found</p>
+      <h1>This page has<br /><em>left the set.</em></h1>
+      <p>The page may have moved, or it may have belonged to an earlier version of Bounced.</p>
+      <div class="not-found-actions">
+        <a class="button button--primary" href="/">Go to the homepage <span aria-hidden="true">→</span></a>
+        <a class="button button--text" href="mailto:artists@bounced.studio">Email Bounced <span aria-hidden="true">↗</span></a>
+      </div>
+    </main>
+  </body>
+</html>
