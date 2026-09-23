@@ -30,6 +30,8 @@ This repository contains the static marketing site for [bounced.studio](https://
 
 The site is configured in [netlify.toml](netlify.toml); the main page and its content live in [src/pages/index.astro](src/pages/index.astro), with shared styling in [src/styles/global.css](src/styles/global.css). A custom [404 page](src/pages/404.astro) handles retired storefront URLs without redirecting unrelated pages to the homepage. The maintainable public summary at [public/llms.txt](public/llms.txt) is copied to `/llms.txt` during the Astro build.
 
+The Open Graph and social-card artwork lives at [public/bounced-og.png](public/bounced-og.png). It is 1200×630 pixels, with the Bounced wordmark and supporting text kept inside the centered square-safe area for 1:1 crops.
+
 ## Inquiries
 
 The site uses a prefilled email inquiry instead of a web form because this repository does not establish a verified Netlify Forms notification destination. The inquiry asks for an artist or project name, a link, the help needed, and an optional timeline. Visitors can also copy or email `artists@bounced.studio` directly.

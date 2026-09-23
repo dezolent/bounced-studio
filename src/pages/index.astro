@@ -63,13 +63,15 @@ const work = [
 const title = 'Bounced — Artist Websites & Digital Operations';
 const description = 'Bounced builds and maintains artist websites that bring music, shows, merch, and fan links into one professional home.';
 const canonical = 'https://bounced.studio/';
+const socialImage = 'https://bounced.studio/bounced-og.png';
+const logo = 'https://bounced.studio/bounced-logo.png';
 const email = 'artists@bounced.studio';
 const inquiryHref = `mailto:${email}?subject=Bounced%20project%20inquiry&body=Artist%20or%20project%20name%3A%0AWebsite%20or%20artist%20link%3A%0A%0AWhat%20would%20you%20like%20help%20with%3F%0A%0AOptional%20timeline%3A%0A`;
 const schema = {
   '@context': 'https://schema.org',
   '@graph': [
-    { '@type': 'Organization', '@id': `${canonical}#organization`, name: 'Bounced', url: canonical, email, parentOrganization: { '@type': 'Organization', name: 'Dezolent, LLC' } },
-    { '@type': 'WebSite', '@id': `${canonical}#website`, url: canonical, name: 'Bounced', publisher: { '@id': `${canonical}#organization` } },
+    { '@type': 'Organization', '@id': `${canonical}#organization`, name: 'Bounced', url: canonical, email, logo, image: socialImage, parentOrganization: { '@type': 'Organization', name: 'Dezolent, LLC' } },
+    { '@type': 'WebSite', '@id': `${canonical}#website`, url: canonical, name: 'Bounced', image: socialImage, publisher: { '@id': `${canonical}#organization` } },
     { '@type': 'Service', name: 'Artist website development and digital operations', provider: { '@id': `${canonical}#organization` }, description, url: canonical },
   ],
 };
@@ -91,9 +93,17 @@ const schema = {
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
-    <meta name="twitter:card" content="summary" />
+    <meta property="og:image" content={socialImage} />
+    <meta property="og:image:secure_url" content={socialImage} />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Bounced — artist websites and digital operations" />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImage} />
+    <meta name="twitter:image:alt" content="Bounced — artist websites and digital operations" />
     <title>{title}</title>
     <script type="application/ld+json" set:html={JSON.stringify(schema)}></script>
   </head>
