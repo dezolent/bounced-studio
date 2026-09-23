@@ -1,0 +1,179 @@
+---
+import '../styles/global.css';
+
+const services = [
+  ['01', 'Artist websites', 'Custom homes for music, shows, merch, fan links, and the story behind the work.'],
+  ['02', 'Domains & site management', 'The practical upkeep that keeps domains, hosting, updates, and the website itself in order.'],
+  ['03', 'Email & connected accounts', 'Branded email setup and a cleaner structure for the accounts that power an artist’s online presence.'],
+  ['04', 'Merch & commerce', 'Store setup and website integrations designed around the artist, the catalog, and the way fans browse.'],
+  ['05', 'Music & show connections', 'Release catalogs and upcoming dates brought into the site when the relevant platforms support it.'],
+  ['06', 'Search & site structure', 'Technical improvements, metadata, and structured data that make the work easier to understand and find.'],
+  ['07', 'Digital organization', 'A clearer system for music, release, rights, and commerce information—without pretending every tool is one tool.'],
+];
+
+const benefits = [
+  ['A professional home', 'Give the work a durable place to live beyond a feed, platform, or temporary campaign.'],
+  ['Fewer loose ends', 'Turn scattered links, accounts, domains, and storefront details into a more coherent setup.'],
+  ['Less repeat work', 'Use supported connections and sensible systems to reduce routine updates across the web.'],
+  ['A clearer picture', 'Know what exists, where it lives, and what needs attention as the artist’s presence grows.'],
+];
+
+const work = [
+  { index: '01', name: 'Morbeato', url: 'https://morbeato.com', displayUrl: 'morbeato.com', category: 'Artist website', description: 'A high-energy artist home connecting releases, live dates, merch, and biography.', className: 'work-card--morbeato', marks: ['LIVE', 'MUSIC', 'MERCH'] },
+  { index: '02', name: 'Dezolent', url: 'https://dezolent.com', displayUrl: 'dezolent.com', category: 'Artist website', description: 'A focused digital home for an artist catalog, identity, and ongoing work.', className: 'work-card--dezolent', marks: ['ARTIST', 'CATALOG', 'IDENTITY'] },
+  { index: '03', name: 'Coptr', url: 'https://coptr.me', displayUrl: 'coptr.me', category: 'Digital work', description: 'A web project shaped around clarity, utility, and a direct user experience.', className: 'work-card--coptr', marks: ['WEB', 'SYSTEM', 'UTILITY'] },
+];
+
+const title = 'Bounced — Artist Websites & Digital Operations';
+const description = 'Bounced builds artist websites and organizes the digital systems behind them, from domains and branded email to merch, music, shows, and search.';
+const canonical = 'https://bounced.studio/';
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    { '@type': 'Organization', '@id': `${canonical}#organization`, name: 'Bounced', url: canonical, email: 'artists@bounced.studio', parentOrganization: { '@type': 'Organization', name: 'Dezolent, LLC' } },
+    { '@type': 'WebSite', '@id': `${canonical}#website`, url: canonical, name: 'Bounced', publisher: { '@id': `${canonical}#organization` } },
+    { '@type': 'Service', name: 'Artist websites and digital operations', provider: { '@id': `${canonical}#organization` }, description, url: canonical },
+  ],
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="theme-color" content="#07090c" />
+    <meta name="description" content={description} />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Bounced" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <title>{title}</title>
+    <script type="application/ld+json" set:html={JSON.stringify(schema)}></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="Bounced home">
+        <img src="/bounced-wordmark-light-blue.png" alt="Bounced" width="1500" height="300" />
+      </a>
+      <nav class="desktop-nav" aria-label="Primary navigation">
+        <a href="#services">Services</a><a href="#benefits">Why Bounced</a><a href="#work">Work</a><a href="#artistops">ArtistOps</a>
+      </nav>
+      <a class="header-cta" href="#contact">Contact <span aria-hidden="true">↗</span></a>
+      <details class="mobile-menu">
+        <summary>Menu</summary>
+        <nav aria-label="Mobile navigation">
+          <a href="#services">Services</a><a href="#benefits">Why Bounced</a><a href="#work">Work</a><a href="#artistops">ArtistOps</a>
+        </nav>
+      </details>
+    </header>
+
+    <main id="main">
+      <section class="hero" id="top" aria-labelledby="hero-title">
+        <div class="hero-noise" aria-hidden="true"></div>
+        <div class="hero-content">
+          <p class="eyebrow reveal reveal--1"><span>Website & digital operations by Bounced</span><span>Operated by Dezolent, LLC</span></p>
+          <h1 id="hero-title" class="reveal reveal--2">Artist websites<span>,</span><br /> <em>and the systems behind them.</em></h1>
+          <div class="hero-bottom reveal reveal--3">
+            <p class="hero-intro">Bounced builds artist websites and helps keep the digital presence around them organized, connected, and current.</p>
+            <div class="hero-actions">
+              <a class="button button--primary" href="mailto:artists@bounced.studio?subject=Bounced%20project%20inquiry">Discuss a project <span aria-hidden="true">↗</span></a>
+              <a class="button button--text" href="#work">See selected work <span aria-hidden="true">↓</span></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="system-map reveal reveal--4" aria-label="Diagram showing an artist website connected to music, shows, commerce, and digital accounts">
+          <div class="map-meta"><span>BOUNCED / SYSTEM MAP</span><span>ONLINE PRESENCE</span></div>
+          <div class="map-field">
+            <div class="signal signal--vertical" aria-hidden="true"></div><div class="signal signal--horizontal" aria-hidden="true"></div>
+            <div class="map-node map-node--center"><span class="node-light" aria-hidden="true"></span><strong>Artist website</strong><small>The home base</small></div>
+            <div class="map-node map-node--music"><span>01</span> Music</div><div class="map-node map-node--shows"><span>02</span> Shows</div>
+            <div class="map-node map-node--commerce"><span>03</span> Commerce</div><div class="map-node map-node--accounts"><span>04</span> Accounts</div>
+          </div>
+          <div class="map-footer"><span>Build what people see.</span><span>Organize what keeps it running.</span></div>
+        </div>
+        <div class="hero-rail" aria-hidden="true"><span>WEB</span><i></i><span>OPS</span><i></i><span>DATA</span><i></i><span>SYSTEMS</span></div>
+      </section>
+
+      <section class="services section" id="services" aria-labelledby="services-title">
+        <div class="section-heading">
+          <p class="kicker">01 / Services</p>
+          <div><h2 id="services-title">The visible website.<br /><span>The invisible work.</span></h2><p>A strong online presence needs both. Bounced handles the website people visit and the practical systems that keep it useful.</p></div>
+        </div>
+        <div class="service-list">
+          {services.map(([number, serviceTitle, copy]) => <article class="service-row"><span class="service-number">{number}</span><h3>{serviceTitle}</h3><p>{copy}</p><span class="service-mark" aria-hidden="true">+</span></article>)}
+        </div>
+      </section>
+
+      <section class="benefits section" id="benefits" aria-labelledby="benefits-title">
+        <div class="benefit-statement">
+          <p class="kicker kicker--light">02 / Why Bounced</p>
+          <h2 id="benefits-title">One clear home.<br /><em>Less digital drag.</em></h2>
+          <p class="benefit-lead">The goal is not more software. It is a setup that makes sense—to the artist, the team, and the people trying to find the work.</p>
+        </div>
+        <div class="benefit-grid">
+          {benefits.map(([benefitTitle, copy], index) => <article class="benefit-item"><span>0{index + 1}</span><h3>{benefitTitle}</h3><p>{copy}</p></article>)}
+        </div>
+      </section>
+
+      <section class="work section" id="work" aria-labelledby="work-title">
+        <div class="work-heading"><div><p class="kicker">03 / Selected work</p><h2 id="work-title">Built around<br /><span>the artist.</span></h2></div><p>Examples of artist websites and digital work designed to make the next action clear.</p></div>
+        <div class="work-grid">
+          {work.map((project) => (
+            <a class:list={['work-card', project.className]} href={project.url} target="_blank" rel="noopener noreferrer" aria-label={`Visit ${project.name} at ${project.displayUrl} (opens in a new tab)`}>
+              <div class="work-card__top"><span>{project.index}</span><span>{project.category}</span><span aria-hidden="true">↗</span></div>
+              <div class="work-visual" aria-hidden="true"><div class="work-wordmark">{project.name}</div><div class="work-marks">{project.marks.map((mark) => <span>{mark}</span>)}</div></div>
+              <div class="work-card__bottom"><p>{project.description}</p><span>{project.displayUrl}</span></div>
+            </a>
+          ))}
+        </div>
+      </section>
+
+      <section class="artistops section" id="artistops" aria-labelledby="artistops-title">
+        <div class="artistops-copy">
+          <div class="development-label"><span></span> In development</div><p class="kicker">04 / ArtistOps vision</p>
+          <h2 id="artistops-title">A connected view of the work around the work.</h2>
+          <p>ArtistOps is the longer-term vision: a dashboard that brings shows, releases, website traffic, merch, and other artist data into one clear view.</p>
+          <p>It is in development. Today, Bounced focuses on building strong artist websites and creating better order across the digital systems already in use.</p>
+        </div>
+        <div class="dashboard" aria-label="Conceptual ArtistOps dashboard preview">
+          <div class="dashboard__bar"><span>ARTISTOPS / CONCEPT</span><div><i></i><i></i><i></i></div></div>
+          <div class="dashboard__body">
+            <aside><strong>OVERVIEW</strong><span>Releases</span><span>Shows</span><span>Website</span><span>Merch</span></aside>
+            <div class="dashboard__main">
+              <div class="dash-heading"><span>Artist overview</span><small>CONNECTED VIEW</small></div>
+              <div class="dash-metrics"><div><span>UPCOMING</span><strong>Shows</strong><i></i></div><div><span>CATALOG</span><strong>Releases</strong><i></i></div><div><span>ONLINE</span><strong>Website</strong><i></i></div></div>
+              <div class="dash-chart"><span>Digital activity</span><svg viewBox="0 0 500 110" role="img" aria-label="Abstract upward and downward activity line"><polyline points="0,92 50,77 100,83 150,49 200,63 250,35 300,52 350,28 400,39 450,10 500,21" fill="none" vector-effect="non-scaling-stroke"></polyline></svg></div>
+            </div>
+          </div>
+          <div class="dashboard__stamp">VISION / NOT A LIVE PRODUCT</div>
+        </div>
+      </section>
+
+      <section class="contact section" id="contact" aria-labelledby="contact-title">
+        <p class="kicker kicker--light">05 / Start a conversation</p>
+        <div class="contact-grid">
+          <h2 id="contact-title">Your work deserves<br /><em>a better home base.</em></h2>
+          <div class="contact-copy"><p>Planning a new artist website—or trying to make sense of the digital setup you already have? Tell Bounced what you are working on.</p><a href="mailto:artists@bounced.studio?subject=Bounced%20project%20inquiry"><span>artists@bounced.studio</span><span aria-hidden="true">↗</span></a><small>Email opens in your preferred mail app.</small></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-brand"><img src="/bounced-wordmark-white.png" alt="Bounced" width="1500" height="300" loading="lazy" /><p>Bounced · operated by Dezolent, LLC.</p></div>
+      <nav aria-label="Footer navigation"><a href="#services">Services</a><a href="#benefits">Why Bounced</a><a href="#work">Work</a><a href="#artistops">ArtistOps</a><a href="#top">Back to top ↑</a></nav>
+      <p class="copyright">© {new Date().getFullYear()} Dezolent, LLC</p>
+    </footer>
+  </body>
+</html>

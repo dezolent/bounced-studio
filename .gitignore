@@ -1,9 +1,6 @@
 node_modules
 *.log*
-.nuxt
-.nitro
+.astro
 .cache
-.output
-.data
 .env
 dist
